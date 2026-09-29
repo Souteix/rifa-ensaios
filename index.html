@@ -211,7 +211,7 @@ label.campo span{display:block;margin-bottom:5px;font-size:12px;font-weight:600;
     <h2>Como participar</h2>
     <ol>
       <li>Toque nos números que você quer. Pode escolher quantos quiser.</li>
-      <li>Toque em <b>Participar</b> e informe seu nome.</li>
+      <li>Toque em <b>Participar</b> e informe nome, celular e e-mail.</li>
       <li>Faça o PIX do valor total para a chave <b>240.822.648-17</b> (CPF).</li>
       <li>Toque em <b>Enviar no WhatsApp</b>: seus números vão na mensagem. Anexe o comprovante na conversa.</li>
       <li>Seus números ficam garantidos quando o comprovante for conferido.</li>
@@ -246,6 +246,16 @@ label.campo span{display:block;margin-bottom:5px;font-size:12px;font-weight:600;
       <label class="campo" for="nome"><span>Seu nome completo</span>
         <input id="nome" autocomplete="name" placeholder="Maria da Silva">
         <span class="erro" id="erroNome" hidden></span>
+      </label>
+
+      <label class="campo" for="celular"><span>Celular (WhatsApp)</span>
+        <input id="celular" type="tel" inputmode="tel" autocomplete="tel" placeholder="(21) 99999-9999" maxlength="15">
+        <span class="erro" id="erroCelular" hidden></span>
+      </label>
+
+      <label class="campo" for="email"><span>E-mail</span>
+        <input id="email" type="email" inputmode="email" autocomplete="email" placeholder="voce@email.com">
+        <span class="erro" id="erroEmail" hidden></span>
       </label>
 
       <div>
@@ -407,16 +417,29 @@ $('form').addEventListener('submit', e => {
   e.preventDefault();
   const nome = $('nome').value.trim();
   const okNome = nome.split(/\s+/).length >= 2;
+  const celular = $('celular').value.trim();
+  const celDig = celular.replace(/\D/g, '');
+  const okCelular = celDig.length === 10 || celDig.length === 11;
+  const email = $('email').value.trim().toLowerCase();
+  const okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+  $('erroCelular').hidden = okCelular; $('erroCelular').textContent = 'Digite o celular com DDD.';
+  $('erroEmail').hidden = okEmail; $('erroEmail').textContent = 'Digite um e-mail válido.';
   const okMaior = $('maior').checked;
   $('erroNome').hidden = okNome; $('erroNome').textContent = 'Digite nome e sobrenome.';
   $('erroMaior').hidden = okMaior; $('erroMaior').textContent = 'Confirme que você é maior de 18 anos.';
-  if (!okNome || !okMaior) return;
+  if (!okNome || !okCelular || !okEmail || !okMaior) {
+    const primeiro = [[okNome, 'nome'], [okCelular, 'celular'], [okEmail, 'email'], [okMaior, 'maior']].find(([ok]) => !ok);
+    if (primeiro) $(primeiro[1]).focus();
+    return;
+  }
 
   const nums = ordenados().map(rot);
   const msg =
 `Olá! Quero participar da ${RIFA.titulo}.
 
 Nome: ${nome}
+Celular: ${celular}
+E-mail: ${email}
 Números escolhidos (${nums.length}): ${nums.join(', ')}
 Valor total: ${BRL(nums.length * RIFA.preco)}
 
@@ -426,6 +449,14 @@ Segue o comprovante do PIX.`;
   link.href = url; link.target = '_blank'; link.rel = 'noopener';
   document.body.appendChild(link); link.click(); link.remove();
   toast('Abrindo o WhatsApp. Não esqueça de anexar o comprovante.');
+});
+
+$('celular').addEventListener('input', e => {
+  const d = e.target.value.replace(/\D/g, '').slice(0, 11);
+  e.target.value = d.length <= 2 ? (d ? `(${d}` : '')
+    : d.length <= 6 ? `(${d.slice(0, 2)}) ${d.slice(2)}`
+    : d.length <= 10 ? `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`
+    : `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
 });
 
 renderAbas(); renderGrade(); renderBarra();

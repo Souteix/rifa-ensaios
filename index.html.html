@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rifa Ensaios da Anitta</title>
+<meta name="description" content="Rifa de ingressos para os Ensaios da Anitta — 24/01/2027, Parque Olímpico, Rio de Janeiro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Kaushan+Script&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+/* Layout: coluna única mobile-first (máx. 40rem), barra de seleção fixa no rodapé. */
+:root{
+  --creme:#efe3cc; --ray:#e7d5b6; --creme-50:#fbf5ea;
+  --vinho:#671628; --vinho-escuro:#3b0913; --vinho-medio:#7a1f33; --vinho-claro:#932b44;
+  --texto:#5c1022; --texto-suave:#7d4450; --rosa-claro:#f7d3dc;
+  --ouro:#f7a823; --ouro-claro:#ffc84a; --rosa:#ec4a8e;
+  --verde:#047857; --verde-bg:#ecfdf5; --verde-borda:#059669;
+  --azul:#2e6cf0; --cinza:#d6d3d1; --cinza-texto:#78716c;
+  --whats:#25D366; --whats-texto:#0b3d20;
+  --display:'Anton',Impact,'Arial Narrow',sans-serif;
+  --script:'Kaushan Script','Brush Script MT',cursive;
+  --body:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{
+  font-family:var(--body); color:var(--texto); background-color:var(--creme);
+  background-image:repeating-conic-gradient(from 0deg at 50% -8%, var(--creme) 0deg 7deg, var(--ray) 7deg 14deg);
+  background-attachment:fixed; -webkit-tap-highlight-color:transparent;
+}
+.wrap{max-width:40rem;margin:0 auto;padding:12px 16px 40px}
+.wrap.com-barra{padding-bottom:140px}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* topo */
+.topo{display:flex;align-items:center;gap:8px;padding:6px 0 12px}
+.tag-rifa{background:var(--vinho-medio);color:var(--ouro-claro);font-family:var(--display);letter-spacing:.08em;text-transform:uppercase;font-size:14px;padding:4px 8px;border-radius:6px}
+.marca{font-family:var(--script);font-size:22px;color:var(--texto)}
+
+/* cartão vinho */
+.card{background:var(--vinho);color:var(--creme-50);border-radius:24px;overflow:hidden;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 10px 30px -18px rgba(59,9,19,.7)}
+.card + .card, .card + section, section + .card{margin-top:16px}
+
+/* capa */
+.capa{position:relative;aspect-ratio:16/10;max-width:100%;overflow:hidden;background:linear-gradient(135deg,var(--rosa),var(--vinho-medio) 55%,var(--vinho-escuro))}
+.capa::before{content:"";position:absolute;inset:0;opacity:.22;background:repeating-conic-gradient(from 0deg at 50% 120%,#fff 0deg 6deg,transparent 6deg 12deg)}
+.capa-conteudo{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:16px;color:#fff}
+.capa .titulo-script{font-family:var(--script);font-size:clamp(34px,10vw,52px);line-height:1;text-shadow:3px 3px 0 var(--texto),-1px -1px 0 var(--texto),1px -1px 0 var(--texto),-1px 1px 0 var(--texto)}
+.capa .local{font-family:var(--display);text-transform:uppercase;letter-spacing:.05em;font-size:clamp(15px,4.6vw,21px);color:var(--creme-50)}
+.capa .data{font-family:var(--display);text-transform:uppercase;font-size:18px;background:var(--ouro);color:var(--texto);padding:4px 12px;border-radius:6px;transform:rotate(-2deg);box-shadow:0 4px 10px rgba(0,0,0,.25)}
+.selo{position:absolute;top:12px;z-index:1;font-size:11px;font-weight:700;border-radius:999px;padding:5px 11px}
+.selo.vivo{left:12px;background:#ef4444;color:#fff;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:6px}
+.selo.vivo i{width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 1.4s infinite}
+.selo.preco{right:12px;background:rgba(59,9,19,.85);color:#fff;font-size:12px}
+.selo.preco span{color:var(--rosa-claro);font-weight:500}
+@keyframes pulse{50%{opacity:.3}}
+
+/* contagem */
+.faixa{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;background:#55101f;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.faixa small{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--ouro-claro)}
+.faixa p{margin:2px 0 0;font-size:12px;color:var(--rosa-claro)}
+.contagem{display:flex;gap:6px}
+.contagem div{min-width:3.4rem;display:flex;flex-direction:column;align-items:center;background:rgba(59,9,19,.85);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:6px 8px}
+.contagem b{font-family:var(--mono);font-size:20px;color:#fff}
+.contagem span{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--rosa-claro)}
+
+.info{padding:16px;display:grid;gap:10px}
+.info h1{margin:0;font-family:var(--display);font-weight:400;text-transform:uppercase;letter-spacing:.03em;font-size:clamp(28px,8vw,38px);line-height:1.08;text-wrap:balance;color:var(--creme-50)}
+.info p{margin:0;font-size:14px;line-height:1.6;color:var(--rosa-claro)}
+.premios{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px}
+.premios li{display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;background:#55101f;border:1px solid rgba(255,255,255,.1)}
+.premios li:first-child{background:rgba(247,168,35,.12);border-color:rgba(247,168,35,.45)}
+.premios .pos{flex:none;width:40px;height:40px;display:grid;place-items:center;border-radius:12px;font-family:var(--display);font-size:17px;background:var(--rosa);color:#fff}
+.premios li:first-child .pos{background:var(--ouro);color:var(--texto)}
+.premios small{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--rosa-claro)}
+.premios strong{font-size:14px}
+
+/* grade */
+.secao-titulo{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin:24px 0 10px}
+.secao-titulo h2{margin:0;font-family:var(--display);font-weight:400;text-transform:uppercase;letter-spacing:.04em;font-size:20px}
+.filtro{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600}
+.filtro input{width:16px;height:16px;accent-color:var(--verde-borda)}
+.legenda{display:flex;flex-wrap:wrap;gap:12px;font-size:11px;font-weight:600;color:var(--texto-suave);margin-bottom:10px}
+.legenda span{display:flex;align-items:center;gap:6px}
+.legenda i{width:12px;height:12px;border-radius:3px}
+.abas{display:flex;gap:6px;overflow-x:auto;margin:0 -16px 10px;padding:0 16px;scrollbar-width:none}
+.abas::-webkit-scrollbar{display:none}
+.abas button{flex:none;border:0;border-radius:8px;padding:7px 12px;font-family:var(--mono);font-size:12px;background:var(--vinho-medio);color:var(--creme-50)}
+.abas button em{font-style:normal;margin-left:6px;color:#6ee7b7}
+.abas button[aria-selected="true"]{background:#fff;color:var(--texto)}
+.abas button[aria-selected="true"] em{color:var(--verde)}
+.grade{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+@media (min-width:560px){.grade{grid-template-columns:repeat(10,minmax(0,1fr))}}
+.num{position:relative;height:44px;border-radius:9px;border:1px solid rgba(5,150,105,.6);background:var(--verde-bg);color:var(--verde);font-family:var(--mono);font-size:14px;transition:transform .1s,background .15s}
+.num:hover{background:#d1fae5}
+.num:active{transform:scale(.92)}
+.num[aria-pressed="true"]{background:var(--azul);border-color:#7aa7ff;color:#fff;box-shadow:0 0 0 2px #7aa7ff,0 8px 16px -6px rgba(46,108,240,.6);animation:pop .35s cubic-bezier(.2,.9,.3,1.3)}
+.num:disabled{cursor:not-allowed;background:var(--cinza);border-color:transparent;color:var(--cinza-texto)}
+.num:disabled::after{content:"";position:absolute;inset:0;margin:auto;width:26px;height:26px;background:
+  linear-gradient(45deg,transparent 45%,rgba(120,113,108,.85) 45% 55%,transparent 55%),
+  linear-gradient(-45deg,transparent 45%,rgba(120,113,108,.85) 45% 55%,transparent 55%)}
+@keyframes pop{0%{transform:scale(.7)}70%{transform:scale(1.08)}100%{transform:scale(1)}}
+.vazio{padding:24px 0;text-align:center;font-size:14px;color:var(--texto-suave)}
+
+/* como participar */
+.passos{margin-top:24px;padding:16px}
+.passos h2{margin:0 0 10px;font-family:var(--display);font-weight:400;text-transform:uppercase;letter-spacing:.04em;font-size:20px;color:var(--creme-50)}
+.passos ol{margin:0;padding-left:20px;display:grid;gap:6px;font-size:14px;color:var(--rosa-claro)}
+.passos b{color:#fff}
+.insta{display:flex;justify-content:center;margin-top:16px;padding:13px;border-radius:16px;background:linear-gradient(90deg,#c026d3,var(--ouro));color:#fff;font-weight:700;font-size:14px;text-decoration:none}
+.rodape{margin-top:20px;text-align:center;font-size:11px;color:var(--texto-suave)}
+
+/* barra fixa */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(59,9,19,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--creme-50);border-top:1px solid rgba(255,255,255,.1);padding:12px 0 calc(env(safe-area-inset-bottom,0px) + 12px);animation:sobe .25s ease-out}
+.barra-in{max-width:40rem;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:10px}
+.barra .resumo{flex:1;min-width:0}
+.barra .resumo small{display:block;font-size:12px;color:var(--rosa-claro)}
+.barra .resumo strong{font-family:var(--display);font-weight:400;font-size:22px;letter-spacing:.02em}
+.btn{border:0;border-radius:14px;padding:13px 18px;font-family:var(--display);text-transform:uppercase;letter-spacing:.05em;font-size:16px}
+.btn-ouro{background:var(--ouro);color:var(--texto);box-shadow:0 8px 20px -8px rgba(247,168,35,.7)}
+.btn-fantasma{background:transparent;color:var(--rosa-claro);border:1px solid rgba(255,255,255,.18);font-family:var(--body);text-transform:none;letter-spacing:0;font-size:12px;font-weight:600;padding:13px 12px}
+.btn-whats{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--whats);color:var(--whats-texto);font-size:17px;padding:16px}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+@keyframes sobe{from{transform:translateY(100%)}to{transform:none}}
+
+/* modal */
+.fundo{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.65);display:flex;align-items:flex-end;justify-content:center}
+@media (min-width:560px){.fundo{align-items:center;padding:16px}}
+.modal{width:100%;max-width:28rem;max-height:92vh;overflow-y:auto;background:var(--vinho);color:var(--creme-50);border-radius:24px 24px 0 0;animation:sobe .25s ease-out}
+@media (min-width:560px){.modal{border-radius:24px}}
+.modal-topo{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:rgba(103,22,40,.97);border-bottom:1px solid rgba(255,255,255,.08)}
+.modal-topo h3{margin:0;font-family:var(--display);font-weight:400;text-transform:uppercase;letter-spacing:.05em;font-size:18px}
+.fechar{border:0;background:none;color:var(--rosa-claro);font-size:26px;line-height:1;padding:4px 8px}
+.modal-corpo{padding:18px 20px 22px;display:grid;gap:14px}
+.caixa{background:var(--vinho-escuro);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px}
+.linha{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:14px;color:var(--rosa-claro)}
+.linha.total{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.08);color:var(--creme-50);font-weight:700}
+.linha.total span:last-child{font-family:var(--display);font-weight:400;font-size:30px;color:var(--ouro-claro)}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px;max-height:96px;overflow-y:auto}
+.chips span{font-family:var(--mono);font-size:11px;padding:2px 6px;border-radius:6px;background:rgba(46,108,240,.25);color:#bcd2ff}
+label.campo span{display:block;margin-bottom:5px;font-size:12px;font-weight:600;color:var(--rosa-claro)}
+.campo input{width:100%;border:1px solid rgba(255,255,255,.12);background:var(--vinho-escuro);color:#fff;border-radius:12px;padding:12px 14px;font:inherit;font-size:16px}
+.campo input:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 2px rgba(46,108,240,.35)}
+.erro{display:block;margin-top:4px;font-size:12px;color:#fca5a5}
+.pix-chave{display:flex;gap:8px}
+.pix-chave input{flex:1;min-width:0;font-family:var(--mono);font-size:18px;letter-spacing:.06em;border:1px solid rgba(255,255,255,.12);background:var(--vinho-escuro);color:#fff;border-radius:12px;padding:12px}
+.btn-copiar{flex:none;border:0;border-radius:12px;padding:0 14px;background:var(--ouro);color:var(--texto);font-weight:700;font-size:12px}
+.btn-copiar.ok{background:#10b981;color:#052e1c}
+.titular{margin:6px 0 0;font-size:12px;color:var(--rosa-claro)}
+.titular b{color:#fff}
+.lista{margin:0;padding-left:18px;display:grid;gap:5px;font-size:12.5px;color:var(--rosa-claro)}
+.lista b{color:#fff}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--rosa-claro)}
+.check input{margin-top:2px;width:16px;height:16px;accent-color:var(--ouro)}
+.nota{margin:-4px 0 0;text-align:center;font-size:11px;color:var(--rosa-claro)}
+
+.toast{position:fixed;left:50%;top:14px;z-index:70;transform:translateX(-50%);max-width:calc(100% - 32px);background:var(--texto);color:#fff;font-size:13px;font-weight:600;padding:11px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+
+  <header class="topo">
+    <span class="tag-rifa">Rifa</span>
+    <span class="marca">Ensaios da Anitta</span>
+  </header>
+
+  <article class="card">
+    <div class="capa">
+      <span class="selo vivo"><i></i> Sorteio ao vivo</span>
+      <span class="selo preco" id="seloPreco"></span>
+      <div class="capa-conteudo">
+        <span class="titulo-script">Ensaios da Anitta</span>
+        <span class="local">Rio de Janeiro · Parque Olímpico</span>
+        <span class="data">Dom · 24/Jan/2027</span>
+      </div>
+    </div>
+    <div class="faixa">
+      <div><small>Sorteio em</small><p>sáb., 12/12/2026 às 20h (Brasília)</p></div>
+      <div class="contagem" id="contagem" aria-label="Tempo até o sorteio"></div>
+    </div>
+    <div class="info">
+      <h1>Ingressos para os Ensaios da Anitta</h1>
+      <p>Ensaios da Anitta no dia 24 de janeiro de 2027, no Parque Olímpico, Rio de Janeiro. Sorteio ao vivo no Instagram <b>@lizandrorozco</b> em 12/12/2026 às 20h (horário de Brasília).</p>
+      <ol class="premios" id="premios"></ol>
+    </div>
+  </article>
+
+  <section>
+    <div class="secao-titulo">
+      <h2>Escolha seus números</h2>
+      <label class="filtro"><input type="checkbox" id="soLivres"> Só disponíveis</label>
+    </div>
+    <div class="legenda">
+      <span><i style="background:var(--verde-bg);border:1px solid var(--verde-borda)"></i>Disponível</span>
+      <span><i style="background:var(--azul)"></i>Selecionado</span>
+      <span><i style="background:var(--cinza)"></i>Já vendido</span>
+    </div>
+    <div class="abas" id="abas" role="tablist"></div>
+    <div class="grade" id="grade"></div>
+    <p class="vazio" id="vazio" hidden>Nenhum número livre nesta faixa.</p>
+  </section>
+
+  <section class="card passos">
+    <h2>Como participar</h2>
+    <ol>
+      <li>Toque nos números que você quer. Pode escolher quantos quiser.</li>
+      <li>Toque em <b>Participar</b> e informe seu nome.</li>
+      <li>Faça o PIX do valor total para a chave <b>240.822.648-17</b> (CPF).</li>
+      <li>Toque em <b>Enviar no WhatsApp</b>: seus números vão na mensagem. Anexe o comprovante na conversa.</li>
+      <li>Seus números ficam garantidos quando o comprovante for conferido.</li>
+    </ol>
+  </section>
+
+  <a class="insta" href="https://instagram.com/lizandrorozco" target="_blank" rel="noopener">Acompanhe a live em @lizandrorozco</a>
+  <p class="rodape">Participação permitida apenas para maiores de 18 anos.</p>
+</div>
+
+<div class="barra" id="barra" hidden>
+  <div class="barra-in">
+    <div class="resumo"><small id="barraQtd"></small><strong class="tnum" id="barraTotal"></strong></div>
+    <button class="btn btn-fantasma" id="btnLimpar" type="button">Limpar</button>
+    <button class="btn btn-ouro" id="btnParticipar" type="button">Participar</button>
+  </div>
+</div>
+
+<div class="fundo" id="fundo" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+    <div class="modal-topo">
+      <h3 id="modalTitulo">Confirmar participação</h3>
+      <button class="fechar" id="btnFechar" type="button" aria-label="Fechar">×</button>
+    </div>
+    <form class="modal-corpo" id="form" novalidate>
+      <div class="caixa">
+        <div class="linha"><span id="mQtd"></span><span class="tnum" id="mUnit"></span></div>
+        <div class="linha total"><span>Total</span><span class="tnum" id="mTotal"></span></div>
+        <div class="chips" id="mChips"></div>
+      </div>
+
+      <label class="campo" for="nome"><span>Seu nome completo</span>
+        <input id="nome" autocomplete="name" placeholder="Maria da Silva">
+        <span class="erro" id="erroNome" hidden></span>
+      </label>
+
+      <div>
+        <label class="campo" for="chave"><span>Chave PIX (CPF)</span></label>
+        <div class="pix-chave">
+          <input id="chave" readonly>
+          <button class="btn-copiar" id="btnCopiar" type="button">Copiar</button>
+        </div>
+        <p class="titular">CPF 240.822.648-17 · Titular: <b>Lizandro Orozco Garcia</b></p>
+      </div>
+
+      <ol class="lista">
+        <li>Copie a chave e faça um PIX de <b id="mTotal2"></b> no app do seu banco.</li>
+        <li>Confira se o titular é <b>Lizandro Orozco Garcia</b>.</li>
+        <li>Toque no botão verde e <b>anexe o comprovante</b> na conversa do WhatsApp.</li>
+      </ol>
+
+      <label class="check" for="maior"><input type="checkbox" id="maior"><span>Confirmo que sou maior de 18 anos.<span class="erro" id="erroMaior" hidden></span></span></label>
+
+      <button class="btn btn-whats" type="submit">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.3-.4.3-.4.8-1.3a.5.5 0 000-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2 5.2 5.2 0 001.1 2.7 11.8 11.8 0 004.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 001.7-1.2 2.2 2.2 0 00.2-1.2c-.1-.1-.3-.2-.6-.3z"/></svg>
+        Enviar no WhatsApp
+      </button>
+      <p class="nota">Abre o WhatsApp de wa.me/5521979978013 com seus números na mensagem.</p>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+/* =========================================================
+   CONFIGURAÇÃO — edite aqui
+   ========================================================= */
+const RIFA = {
+  titulo: 'Rifa Ensaios da Anitta',
+  preco: 20,
+  totalNumeros: 250,              // números de 001 a 250
+  sorteio: '2026-12-12T20:00:00-03:00',
+  premios: [
+    '1 par de ingressos Pista Premium (meia solidária)',
+    '1 ingresso Setor Open Bar',
+  ],
+  chavePix: '24082264817',
+  whatsapp: '5521979978013',
+};
+
+/* Números já vendidos: atualize esta lista conforme os comprovantes chegarem
+   e publique a página de novo. Eles aparecem em cinza com X e não podem ser escolhidos.
+   Exemplo: const VENDIDOS = [7, 13, 21, 150]; */
+const VENDIDOS = [];
+
+/* ========================================================= */
+const $ = id => document.getElementById(id);
+const BRL = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const digitos = String(RIFA.totalNumeros).length;
+const rot = n => String(n).padStart(digitos, '0');
+const vendidos = new Set(VENDIDOS.map(Number));
+const selecionados = new Set();
+let pagina = 0;
+const porPagina = 100;
+const paginas = Math.ceil(RIFA.totalNumeros / porPagina);
+
+/* Cabeçalho */
+$('seloPreco').innerHTML = `${BRL(RIFA.preco)} <span>/número</span>`;
+$('premios').innerHTML = RIFA.premios.map((p, i) =>
+  `<li><span class="pos">${i + 1}º</span><div><small>${i + 1}º prêmio</small><strong>${p}</strong></div></li>`).join('');
+$('chave').value = RIFA.chavePix;
+
+/* Contagem regressiva */
+const alvo = new Date(RIFA.sorteio).getTime();
+function tick() {
+  const d = Math.max(0, alvo - Date.now());
+  const p = n => String(n).padStart(2, '0');
+  const partes = [[Math.floor(d / 864e5), 'dias'], [Math.floor(d / 36e5) % 24, 'horas'], [Math.floor(d / 6e4) % 60, 'min'], [Math.floor(d / 1e3) % 60, 'seg']];
+  $('contagem').innerHTML = partes.map(([v, l]) => `<div><b class="tnum">${p(v)}</b><span>${l}</span></div>`).join('');
+}
+tick(); setInterval(tick, 1000);
+
+/* Abas e grade */
+function livresNaPagina(pg) {
+  let c = 0;
+  for (let n = pg * porPagina + 1; n <= Math.min(RIFA.totalNumeros, (pg + 1) * porPagina); n++) if (!vendidos.has(n)) c++;
+  return c;
+}
+function renderAbas() {
+  if (paginas <= 1) { $('abas').hidden = true; return; }
+  $('abas').innerHTML = Array.from({ length: paginas }, (_, pg) => {
+    const ini = pg * porPagina + 1, fim = Math.min(RIFA.totalNumeros, (pg + 1) * porPagina);
+    return `<button type="button" role="tab" aria-selected="${pg === pagina}" data-pg="${pg}">${rot(ini)}–${rot(fim)}<em>${livresNaPagina(pg)}</em></button>`;
+  }).join('');
+}
+function renderGrade() {
+  const so = $('soLivres').checked;
+  const ini = pagina * porPagina + 1, fim = Math.min(RIFA.totalNumeros, (pagina + 1) * porPagina);
+  let html = '';
+  for (let n = ini; n <= fim; n++) {
+    const v = vendidos.has(n);
+    if (so && v) continue;
+    const s = selecionados.has(n);
+    html += `<button type="button" class="num tnum" data-n="${n}" ${v ? 'disabled' : ''} aria-pressed="${s}" aria-label="Número ${rot(n)} ${v ? 'vendido' : s ? 'selecionado' : 'disponível'}">${rot(n)}</button>`;
+  }
+  $('grade').innerHTML = html;
+  $('vazio').hidden = html !== '';
+}
+function renderBarra() {
+  const q = selecionados.size;
+  $('barra').hidden = q === 0;
+  $('app').classList.toggle('com-barra', q > 0);
+  $('barraQtd').textContent = `${q} ${q === 1 ? 'número escolhido' : 'números escolhidos'}`;
+  $('barraTotal').textContent = BRL(q * RIFA.preco);
+}
+
+$('abas').addEventListener('click', e => {
+  const b = e.target.closest('button[data-pg]'); if (!b) return;
+  pagina = Number(b.dataset.pg); renderAbas(); renderGrade();
+});
+$('grade').addEventListener('click', e => {
+  const b = e.target.closest('button[data-n]'); if (!b || b.disabled) return;
+  const n = Number(b.dataset.n);
+  selecionados.has(n) ? selecionados.delete(n) : selecionados.add(n);
+  b.setAttribute('aria-pressed', selecionados.has(n));
+  renderBarra();
+});
+$('soLivres').addEventListener('change', renderGrade);
+$('btnLimpar').addEventListener('click', () => { selecionados.clear(); renderGrade(); renderBarra(); });
+
+/* Modal */
+const ordenados = () => [...selecionados].sort((a, b) => a - b);
+function abrir() {
+  const q = selecionados.size, total = BRL(q * RIFA.preco);
+  $('mQtd').textContent = `${q} ${q === 1 ? 'número' : 'números'} × ${BRL(RIFA.preco)}`;
+  $('mUnit').textContent = total;
+  $('mTotal').textContent = total;
+  $('mTotal2').textContent = total;
+  $('mChips').innerHTML = ordenados().map(n => `<span>${rot(n)}</span>`).join('');
+  $('fundo').hidden = false;
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => $('nome').focus(), 50);
+}
+function fechar() { $('fundo').hidden = true; document.body.style.overflow = ''; }
+$('btnParticipar').addEventListener('click', abrir);
+$('btnFechar').addEventListener('click', fechar);
+$('fundo').addEventListener('click', e => { if (e.target === $('fundo')) fechar(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('fundo').hidden) fechar(); });
+
+let toastT;
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 2600); }
+
+$('btnCopiar').addEventListener('click', async () => {
+  const b = $('btnCopiar');
+  try { await navigator.clipboard.writeText(RIFA.chavePix); }
+  catch { $('chave').select(); try { document.execCommand('copy'); } catch (_) {} }
+  b.textContent = 'Copiado'; b.classList.add('ok');
+  setTimeout(() => { b.textContent = 'Copiar'; b.classList.remove('ok'); }, 2000);
+});
+
+$('form').addEventListener('submit', e => {
+  e.preventDefault();
+  const nome = $('nome').value.trim();
+  const okNome = nome.split(/\s+/).length >= 2;
+  const okMaior = $('maior').checked;
+  $('erroNome').hidden = okNome; $('erroNome').textContent = 'Digite nome e sobrenome.';
+  $('erroMaior').hidden = okMaior; $('erroMaior').textContent = 'Confirme que você é maior de 18 anos.';
+  if (!okNome || !okMaior) return;
+
+  const nums = ordenados().map(rot);
+  const msg =
+`Olá! Quero participar da ${RIFA.titulo}.
+
+Nome: ${nome}
+Números escolhidos (${nums.length}): ${nums.join(', ')}
+Valor total: ${BRL(nums.length * RIFA.preco)}
+
+Segue o comprovante do PIX.`;
+  const url = `https://wa.me/${RIFA.whatsapp}?text=${encodeURIComponent(msg)}`;
+  const link = document.createElement('a');
+  link.href = url; link.target = '_blank'; link.rel = 'noopener';
+  document.body.appendChild(link); link.click(); link.remove();
+  toast('Abrindo o WhatsApp. Não esqueça de anexar o comprovante.');
+});
+
+renderAbas(); renderGrade(); renderBarra();
+</script>
+</body>
+</html>

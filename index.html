@@ -219,7 +219,8 @@ label.campo span{display:block;margin-bottom:5px;font-size:12px;font-weight:600;
   </section>
 
   <a class="insta" href="https://instagram.com/lizandrorozco" target="_blank" rel="noopener">Acompanhe a live em @lizandrorozco</a>
-  <p class="rodape">Participação permitida apenas para maiores de 18 anos.</p>
+  <p class="rodape">Participação permitida apenas para maiores de 18 anos.
+  Esta página e rifa não possuem quaisquer vínculos com os responsáveis pelo evento, produção e seus parceiros.</p>
 </div>
 
 <div class="barra" id="barra" hidden>
@@ -275,11 +276,12 @@ label.campo span{display:block;margin-bottom:5px;font-size:12px;font-weight:600;
 
       <label class="check" for="maior"><input type="checkbox" id="maior"><span>Confirmo que sou maior de 18 anos.<span class="erro" id="erroMaior" hidden></span></span></label>
 
-      <button class="btn btn-whats" type="submit">
+      <button class="btn btn-whats" id="btnEnviar" type="submit" disabled>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.3-.4.3-.4.8-1.3a.5.5 0 000-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2 5.2 5.2 0 001.1 2.7 11.8 11.8 0 004.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 001.7-1.2 2.2 2.2 0 00.2-1.2c-.1-.1-.3-.2-.6-.3z"/></svg>
         Enviar no WhatsApp
       </button>
-      <p class="nota">Abre o WhatsApp de wa.me/5521979978013 com seus números na mensagem.</p>
+      <p class="nota" id="avisoCampos">Preencha nome, celular, e-mail e confirme que é maior de 18 anos para liberar o envio.</p>
+      <p class="nota">Esta página e rifa não possuem quaisquer vínculos com os responsáveis pelo evento, produção e seus parceiros.</p>
     </form>
   </div>
 </div>
@@ -394,6 +396,7 @@ function abrir() {
   $('mChips').innerHTML = ordenados().map(n => `<span>${rot(n)}</span>`).join('');
   $('fundo').hidden = false;
   document.body.style.overflow = 'hidden';
+  validar();
   setTimeout(() => $('nome').focus(), 50);
 }
 function fechar() { $('fundo').hidden = true; document.body.style.overflow = ''; }
@@ -411,6 +414,38 @@ $('btnCopiar').addEventListener('click', async () => {
   catch { $('chave').select(); try { document.execCommand('copy'); } catch (_) {} }
   b.textContent = 'Copiado'; b.classList.add('ok');
   setTimeout(() => { b.textContent = 'Copiar'; b.classList.remove('ok'); }, 2000);
+});
+
+/* Libera o botão do WhatsApp só com todos os campos válidos */
+function validar() {
+  const nome = $('nome').value.trim();
+  const celular = $('celular').value.trim();
+  const email = $('email').value.trim().toLowerCase();
+  const r = {
+    nome, celular, email,
+    okNome: nome.split(/\s+/).length >= 2,
+    okCelular: [10, 11].includes(celular.replace(/\D/g, '').length),
+    okEmail: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email),
+    okMaior: $('maior').checked,
+  };
+  r.tudoOk = r.okNome && r.okCelular && r.okEmail && r.okMaior;
+  $('btnEnviar').disabled = !r.tudoOk;
+  $('avisoCampos').hidden = r.tudoOk;
+  return r;
+}
+['nome', 'celular', 'email', 'maior'].forEach(id => {
+  $(id).addEventListener('input', validar);
+  $(id).addEventListener('change', validar);
+});
+/* Mostra o erro do campo quando a pessoa sai dele */
+[['nome', 'erroNome', 'okNome', 'Digite nome e sobrenome.'],
+ ['celular', 'erroCelular', 'okCelular', 'Digite o celular com DDD.'],
+ ['email', 'erroEmail', 'okEmail', 'Digite um e-mail válido.']].forEach(([campo, erro, chave, texto]) => {
+  $(campo).addEventListener('blur', () => {
+    if (!$(campo).value.trim()) return;
+    const ok = validar()[chave];
+    $(erro).hidden = ok; $(erro).textContent = texto;
+  });
 });
 
 $('form').addEventListener('submit', e => {
@@ -442,6 +477,8 @@ Celular: ${celular}
 E-mail: ${email}
 Números escolhidos (${nums.length}): ${nums.join(', ')}
 Valor total: ${BRL(nums.length * RIFA.preco)}
+
+Declaro que sou maior de 18 anos.
 
 Segue o comprovante do PIX.`;
   const url = `https://wa.me/${RIFA.whatsapp}?text=${encodeURIComponent(msg)}`;
